@@ -25,6 +25,13 @@ sources:
     tileSize: 512
     minzoom: 3
     maxzoom: 13
+  v:
+    type: vector
+    tiles:
+    - https://optgeo.github.io/unite-one/zxy/{z}/{x}/{y}.pbf
+    minzoom: 10
+    maxzoom: 12
+    attribution: 国土地理院ベクトルタイル提供実験
 layers:
 - type: background
   id: background
@@ -34,6 +41,50 @@ layers:
   id: sky
   paint:
     sky-type: atmosphere
+- id: one
+  type: fill
+  source: v
+  source-layer: one
+  paint:
+    fill-color:
+    - match
+    - - get
+      - code
+    - 山地
+    - "#d9cbae"
+    - 崖・段丘崖
+    - "#9466ab"
+    - 地すべり地形
+    - "#cc99ff"
+    - 台地・段丘
+    - "#ffaa00"
+    - 山麓堆積地形
+    - "#99804d"
+    - 扇状地
+    - "#cacc60"
+    - 自然堤防
+    - "#ffff33"
+    - 天井川
+    - "#fbe09d"
+    - 砂州・砂丘
+    - "#ffff99"
+    - 凹地・浅い谷
+    - "#a3cc7e"
+    - 氾濫平野
+    - "#bbff99"
+    - 後背低地・湿地
+    - "#00d1a4"
+    - 旧河道
+    - "#6699ff"
+    - 落堀
+    - "#1f9999"
+    - 河川敷・浜
+    - "#9f9fc4"
+    - 水部
+    - "#e5ffff"
+    - 旧水部
+    - "#779999"
+    - "#f00"
 - id: gsibv-vectortile-layer-1
   type: line
   source: gsibv-vectortile-source-1-4-16
