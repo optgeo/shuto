@@ -4,6 +4,8 @@ require 'yaml'
 
 style = JSON.load(File.open(BASE_STYLE_PATH))
 
+style['sources']['gsibv-vectortile-source-1-4-16']['attribution'] = '国土地理院'
+
 style['sources']['plateau'] = YAML.load(
 <<EOS
 type: vector
@@ -11,7 +13,7 @@ tiles:
   - https://indigo-lab.github.io/plateau-tokyo23ku-building-mvt-2020/{z}/{x}/{y}.pbf
 minzoom: 10
 maxzoom: 16
-attribution: "<a href='https://github.com/indigo-lab/plateau-tokyo23ku-building-mvt-2020'>plateau-tokyo23ku-building-mvt-2020 by indigo-lab</a> (<a href='https://www.mlit.go.jp/plateau/'>国土交通省 Project PLATEAU</a> のデータを加工して作成)"
+attribution: "国土交通省 Project PLATEAU のデータを indigo-lab が加工して作成"
 EOS
 )
 
@@ -33,7 +35,7 @@ tiles:
   - https://optgeo.github.io/unite-one/zxy/{z}/{x}/{y}.pbf
 minzoom: 10
 maxzoom: 12
-attribution: 国土地理院ベクトルタイル提供実験
+attribution: 国土地理院
 EOS
 )
 

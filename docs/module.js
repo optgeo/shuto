@@ -1,3 +1,11 @@
+let $map = null
+let $mapgl = null
+
+const CENTER = [139.729, 35.680]
+const PERIOD = 40000 //ms
+const R = 0.062 //degrees
+const HEIGHT = 877
+
 const style = href => {
   const e = document.createElement('link')
   e.href = href
@@ -21,63 +29,43 @@ const init = () => {
 }
 init()
 
+
+const frame = (time) => {
+  const theta = 2 * Math.PI * (time % PERIOD) / PERIOD
+  const camera = $map.getFreeCameraOptions()
+  camera.position = $mapgl.MercatorCoordinate.fromLngLat(
+    [
+      CENTER[0] + R * Math.cos(theta),
+      CENTER[1] + R * Math.sin(theta)
+    ],
+    HEIGHT
+  )
+  camera.lookAtPoint(CENTER)
+  $map.setFreeCameraOptions(camera)
+  window.requestAnimationFrame(frame)
+}
+
 const showMap = async (texts) => {
   mapboxgl.accessToken = 'pk.eyJ1IjoiaGZ1IiwiYSI6ImlRSGJVUTAifQ.rTx380smyvPc1gUfZv1cmw'
-  const mapgl = mapboxgl
-  const map = new mapgl.Map({
+  $mapgl = mapboxgl
+  $map = new $mapgl.Map({
     container: 'map',
     hash: true,
     style: 'style.json',
-    center: [135, 35],
+    center: CENTER,
     zoom: 11.77,
     maxZoom: 18
   })
-  map.addControl(new mapgl.NavigationControl())
-  map.addControl(new mapgl.ScaleControl({
+  $map.addControl(new $mapgl.NavigationControl())
+  $map.addControl(new $mapgl.ScaleControl({
     maxWidth: 200, unit: 'metric'
   }))
 
-  let voice = null
-  for(let v of speechSynthesis.getVoices()) {
-    console.log(v.name)
-    if ([
-      'Daniel',
-      'Google UK English Male',
-      'Microsoft Libby Online (Natural) - English (United Kingdom)'
-    ].includes(v.name)) voice = v
-  }
+  $map.on('load', () => {
+  })
 
-  const legend = {
-    0: 'created, never classified',
-    1: 'unclassified',
-    2: 'ground',
-    3: 'low vegetation',
-    4: 'medium vegetation',
-    5: 'high vegetation',
-    6: 'building',
-    7: 'low point, or low noise',
-    8: 'high point, typically high noise',
-    9: 'water',
-    10: 'rail',
-    11: 'road surface',
-    12: 'bridge deck',
-    13: 'wire, guard',
-    14: 'wire, conductor',
-    15: 'transmission tower',
-    16: 'wire-structure connector, such as insulator'
-  }
-
-  map.on('load', () => {
-    map.on('click', 'voxel', (e) => {
-      let u = new SpeechSynthesisUtterance()
-      u.lang = 'en-GB'
-      u.text = legend[e.features[0].properties.classification]
-      if (!u.text) u.text = 'reserved or user definable.'
-      if (voice) u.voice = voice
-      speechSynthesis.cancel()
-      speechSynthesis.speak(u)
-    })
-
+  $map.once('idle', () => {
+    window.requestAnimationFrame(frame)    
   })
 }
 

@@ -8,16 +8,14 @@ sources:
     - https://cyberjapandata.gsi.go.jp/xyz/experimental_bvmap/{z}/{x}/{y}.pbf
     minzoom: 4
     maxzoom: 16
-    attribution: <a href="https://maps.gsi.go.jp/vector/" target="_blank">地理院地図Vector（仮称）</a>
+    attribution: 国土地理院
   plateau:
     type: vector
     tiles:
     - https://indigo-lab.github.io/plateau-tokyo23ku-building-mvt-2020/{z}/{x}/{y}.pbf
     minzoom: 10
     maxzoom: 16
-    attribution: "<a href='https://github.com/indigo-lab/plateau-tokyo23ku-building-mvt-2020'>plateau-tokyo23ku-building-mvt-2020
-      by indigo-lab</a> (<a href='https://www.mlit.go.jp/plateau/'>国土交通省 Project PLATEAU</a>
-      のデータを加工して作成)"
+    attribution: 国土交通省 Project PLATEAU のデータを indigo-lab が加工して作成
   h:
     type: raster-dem
     tiles:
@@ -31,7 +29,7 @@ sources:
     - https://optgeo.github.io/unite-one/zxy/{z}/{x}/{y}.pbf
     minzoom: 10
     maxzoom: 12
-    attribution: 国土地理院ベクトルタイル提供実験
+    attribution: 国土地理院
 layers:
 - type: background
   id: background
