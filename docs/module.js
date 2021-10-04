@@ -56,13 +56,6 @@ const showMap = async (texts) => {
     zoom: 11.77,
     maxZoom: 18
   })
-  $map.addControl(new $mapgl.NavigationControl())
-  $map.addControl(new $mapgl.ScaleControl({
-    maxWidth: 200, unit: 'metric'
-  }))
-
-  $map.on('load', () => {
-  })
 
   $map.once('idle', () => {
     window.requestAnimationFrame(frame)    
